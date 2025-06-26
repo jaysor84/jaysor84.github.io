@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Brain - Your Personal Memory Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #1c1c1e;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🧠';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            right: -50px;
+            top: -30px;
+            transform: rotate(15deg);
+        }
+
+        .app-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .app-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .support-email-header {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .support-email-header:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            border-bottom: 1px solid #e5e5ea;
+            padding: 0 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            padding: 20px 0;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            border-bottom-color: #667eea;
+            color: #5a67d8;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 30px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-content {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #e5e5ea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* How to Use Section */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e5e5ea;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .feature-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            color: #4a5568;
+        }
+
+        .step-list li::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: white;
+            border: 1px solid #e5e5ea;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            color: #2d3748;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #4a5568;
+            display: none;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        /* Privacy Policy */
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+
+        .privacy-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2d3748;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .privacy-section p {
+            margin-bottom: 15px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .privacy-section ul {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        .privacy-section li {
+            margin-bottom: 10px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #f39c12;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(243, 156, 18, 0.1);
+        }
+
+        .highlight strong {
+            color: #d68910;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .app-version {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px;
+            }
+
+            .app-title {
+                font-size: 2rem;
+            }
+
+            .support-email-header {
+                position: static;
+                display: inline-block;
+                margin-top: 20px;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 0;
+                padding: 0 20px;
+            }
+
+            .nav-item {
+                text-align: center;
+                padding: 15px 0;
+                border-bottom: 1px solid #e5e5ea;
+            }
+
+            .nav-item:last-child {
+                border-bottom: none;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-content {
+                padding: 25px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+        }
+
+        /* Additional Styling */
+        .icon {
+            display: inline-block;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="mailto:sorapps.help@gmail.com" class="support-email-header">
+                <span class="icon">✉️</span> Email Support
+            </a>
+            <h1 class="app-title">Phone Brain</h1>
+            <p class="app-subtitle">Your Personal Memory Assistant</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="#how-to-use" class="nav-item active" onclick="showSection('how-to-use', this)">
+                <span class="nav-icon">📱</span> How to Use
+            </a>
+            <a href="#faq" class="nav-item" onclick="showSection('faq', this)">
+                <span class="nav-icon">❓</span> FAQ's
+            </a>
+            <a href="#privacy" class="nav-item" onclick="showSection('privacy', this)">
+                <span class="nav-icon">🔒</span> Privacy Policy
+            </a>
+        </nav>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- How to Use Section -->
+            <section id="how-to-use" class="section active">
+                <h2 class="section-title">
+                    <span class="icon">📱</span>
+                    How to Use Phone Brain
+                </h2>
+                
+                <div class="section-content">
+                    <p class="mb-30" style="font-size: 1.1rem; color: #4a5568; text-align: center;">
+                        Phone Brain helps you remember important people, places, and information by storing everything securely on your device. Follow these comprehensive guides to get the most out of your app.
+                    </p>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <span class="feature-icon">👤</span>
+                            <h3 class="feature-title">Me Tab - Your Profile</h3>
+                            <p class="feature-description">Create and manage your personal profile with essential information for emergency situations.</p>
+                            <ul class="step-list">
+                                <li>Tap the "Me" tab at the bottom</li>
+                                <li>Tap "Edit" in the top-right corner</li>
+                                <li>Add your profile photo by tapping the camera icon</li>
+                                <li>Fill in your name, date of birth, and contact information</li>
+                                <li>Add emergency contact details (name, phone, relationship)</li>
+                                <li>Include any important medical conditions</li>
+                                <li>Tap "Done" to save your changes</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card">
+                            <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                            <h3 class="feature-title">Family Tab</h3>
+                            <p class="feature-description">Keep track of family members with photos, relationships, and important notes.</p>
+                            <ul class="step-list">
+                                <li>Tap the "Family" tab</li>
+                                <li>Tap the "+" button to add a family member</li>
+                                <li>Add a photo from camera or photo library</li>
+                                <li>Enter their name and select relationship</li>
+                                <li>Add birthday if known (optional)</li>
+                                <li>Include notes about them</li>
+                                <li>Tap "Save" to add them to your family</li>
+                                <li>Tap any family member card to view full details</li>
+                                <li>Long press and drag to reorder family members</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card">
+                            <span class="feature-icon">👥</span>
+                            <h3 class="feature-title">Friends Tab</h3>
+                            <p class="feature-description">Remember your friends and how you know them.</p>
+                            <ul class="step-list">
+                                <li>Tap the "Friends" tab</li>
+                                <li>Tap the "+" button to add a friend</li>
+                                <li>Add their photo</li>
+                                <li>Enter their name and connection (e.g., "College friend", "Met at gym")</li>
+                                <li>Add birthday if known</li>
+                                <li>Include notes about your friendship</li>
+                                <li>Tap "Save" to add them</li>
+                                <li>Tap any friend card to view and edit details</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card">
+                            <span class="feature-icon">📍</span>
+                            <h3 class="feature-title">Places Tab</h3>
+                            <p class="feature-description">Remember important locations and their significance.</p>
+                            <ul class="step-list">
+                                <li>Tap the "Places" tab</li>
+                                <li>Tap the "+" button to add a place</li>
+                                <li>Add a photo of the location</li>
+                                <li>Enter the place name</li>
+                                <li>Select or create a category (Home, Work, Restaurant, etc.)</li>
+                                <li>Add the address (optional)</li>
+                                <li>Include notes about why this place is important</li>
+                                <li>Tap "Save" to add the location</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card">
+                            <span class="feature-icon">📂</span>
+                            <h3 class="feature-title">Other Tab - Custom Categories</h3>
+                            <p class="feature-description">Create custom categories for anything else you want to remember.</p>
+                            <ul class="step-list">
+                                <li>Tap the "Other" tab</li>
+                                <li>Tap "Add New Category" to create a custom category</li>
+                                <li>Choose a name (e.g., "Medications", "Hobbies", "Pets")</li>
+                                <li>Select an icon and color</li>
+                                <li>Tap "Save Category"</li>
+                                <li>Tap on your new category to add items</li>
+                                <li>Add photos, names, and notes for each item</li>
+                                <li>Use "Edit Categories" to reorder or delete categories</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card">
+                            <span class="feature-icon">🔧</span>
+                            <h3 class="feature-title">Advanced Tips</h3>
+                            <p class="feature-description">Get the most out of Phone Brain with these pro tips.</p>
+                            <ul class="step-list">
+                                <li>Drag and drop cards to reorder them</li>
+                                <li>Tap and hold on cards for quick actions</li>
+                                <li>Use the search functionality to find entries quickly</li>
+                                <li>Add detailed notes to help trigger memories</li>
+                                <li>Take photos in good lighting for better recognition</li>
+                                <li>Update information regularly to keep it current</li>
+                                <li>Use categories to organize different types of information</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight">
+                        <strong>💡 Pro Tip:</strong> The more detailed information you add, the better Phone Brain works as your memory assistant. Don't forget to include photos - they're the most powerful memory triggers!
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="section">
+                <h2 class="section-title">
+                    <span class="icon">❓</span>
+                    Frequently Asked Questions
+                </h2>
+
+                <div class="section-content">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How is my data stored and protected?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            All your personal information is stored locally on your device using Apple's secure SwiftData framework. Your data never leaves your device unless you explicitly choose to back it up through iCloud. No one else, including us, can access your personal information.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Can I sync my information across multiple devices?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! Phone Brain supports iCloud sync, which means your information will automatically sync across all your iOS devices signed in with the same Apple ID. This feature is entirely under your control and can be managed through your device's iCloud settings.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What happens if I delete the app?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            If you delete the app, all locally stored data will be removed from your device. However, if you have iCloud sync enabled, your data will be preserved in iCloud and restored when you reinstall the app on the same Apple ID.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Can I export my profile information?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Currently, Phone Brain doesn't have a built-in export feature. However, you can take screenshots of your profile or manually copy the information. We're considering adding export functionality in future updates based on user feedback.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I add or edit my emergency contact information?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Go to the "Me" tab, tap "Edit" in the top-right corner, scroll down to the Emergency Contact section, and update the relevant fields (name, phone number, relationship). Don't forget to tap "Done" to save your changes.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Can I add multiple photos for one person or place?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Currently, Phone Brain supports one photo per entry. We recommend choosing the most recognizable photo. Future updates may include support for multiple photos based on user demand.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I reorder my family members, friends, or places?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            You can reorder entries by using drag and drop. Simply press and hold on any card, then drag it to your desired position. The new order will be automatically saved.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What types of custom categories can I create?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            You can create any type of category that helps you remember important information. Popular examples include: Medications, Pets, Hobbies, Important Documents, Favorite Recipes, Exercise Routines, or any other category that's meaningful to you.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Is there a limit to how many entries I can add?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            There's no artificial limit set by the app. The only limitation would be your device's available storage space. Phone Brain is designed to handle hundreds of entries efficiently.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Can I use Phone Brain offline?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! Phone Brain works completely offline. All your data is stored locally on your device, so you can access your information anytime, anywhere, without an internet connection.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I delete an entry I no longer need?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Tap on the entry you want to delete to open the full-screen view, then tap the delete button (trash icon) at the bottom of the screen. Confirm the deletion when prompted. Note that deleted entries cannot be recovered unless you have an iCloud backup.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Why should I use Phone Brain instead of just taking notes?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Phone Brain is specifically designed for remembering people and places with visual cues. It organizes information in an easy-to-browse format with photos, makes it simple to find specific information quickly, and provides structured templates for different types of memories. It's like having a digital memory assistant optimized for faces, places, and relationships.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy Policy Section -->
+            <section id="privacy" class="section">
+                <h2 class="section-title">
+                    <span class="icon">🔒</span>
+                    Privacy Policy
+                </h2>
+
+                <div class="section-content">
+                    <p class="mb-20"><strong>Last Updated:</strong> December 2024</p>
+                    
+                    <div class="privacy-section">
+                        <h3>Introduction</h3>
+                        <p>
+                            Phone Brain ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application. Phone Brain is designed with privacy as a fundamental principle.
+                        </p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>1. Information We Collect</h3>
+                        <p>Phone Brain is designed with privacy in mind. All your personal information is stored locally on your device using SwiftData and includes:</p>
+                        <ul>
+                            <li>Personal profile information (name, date of birth, phone number, address)</li>
+                            <li>Emergency contact details</li>
+                            <li>Medical condition information</li>
+                            <li>Family member details and photos</li>
+                            <li>Friend information and photos</li>
+                            <li>Place information and photos</li>
+                            <li>Custom category items and photos</li>
+                            <li>Notes and memories you add</li>
+                        </ul>
+                        <p><strong>Important:</strong> We do not collect, transmit, or store any of your personal information on external servers.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>2. Data Storage</h3>
+                        <p>All data entered into Phone Brain is stored exclusively on your device using Apple's SwiftData framework. This includes:</p>
+                        <ul>
+                            <li>All personal information and profiles</li>
+                            <li>Photos you add to any profile or entry</li>
+                            <li>Notes and memories</li>
+                            <li>Contact information</li>
+                            <li>Custom categories and items</li>
+                            <li>App preferences and settings</li>
+                        </ul>
+                        <p>Your data remains under your complete control and is never transmitted to our servers or any third parties without your explicit consent.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>3. Photos and Media</h3>
+                        <p>When you add photos to profiles, these images are:</p>
+                        <ul>
+                            <li>Stored locally on your device within the app's secure container</li>
+                            <li>Not uploaded to any cloud service by our app</li>
+                            <li>Only accessible within the Phone Brain app</li>
+                            <li>Subject to your device's backup settings (iCloud, etc.) if you choose to enable backup</li>
+                            <li>Compressed and optimized for efficient storage while maintaining quality</li>
+                        </ul>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>4. Third-Party Services</h3>
+                        <p>
+                            Phone Brain does not integrate with any third-party analytics, advertising, or data collection services. The app operates entirely offline regarding your personal data. We do not use any tracking mechanisms, analytics tools, or advertising networks that could compromise your privacy.
+                        </p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>5. Data Backup and Sync</h3>
+                        <p>
+                            Your Phone Brain data may be included in your device's automatic backup systems (such as iCloud Backup) according to your device settings. When you enable iCloud sync for Phone Brain:
+                        </p>
+                        <ul>
+                            <li>Your data is encrypted and stored in your personal iCloud account</li>
+                            <li>Only you can access this data with your Apple ID credentials</li>
+                            <li>Data syncs across your devices signed in with the same Apple ID</li>
+                            <li>You can disable iCloud sync at any time in your device settings</li>
+                        </ul>
+                        <p>We recommend reviewing your device's backup settings to understand how your data is handled.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>6. Data Deletion</h3>
+                        <p>You have complete control over your data and can delete any information from Phone Brain at any time:</p>
+                        <ul>
+                            <li>Individual entries can be deleted within the app</li>
+                            <li>Entire categories can be deleted (removing all items within)</li>
+                            <li>Photos can be removed from individual entries</li>
+                            <li>Uninstalling the app will remove all associated data from your device</li>
+                            <li>Data is permanently deleted and cannot be recovered unless you have a backup</li>
+                        </ul>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>7. Children's Privacy</h3>
+                        <p>
+                            Phone Brain is designed to help users remember important people and places. While the app may contain information about family members of all ages, all data is stored locally and privately on the user's device. We do not knowingly collect personal information from children under 13 without parental consent.
+                        </p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>8. Security</h3>
+                        <p>We take the security of your information seriously:</p>
+                        <ul>
+                            <li>Data is stored using Apple's secure SwiftData framework</li>
+                            <li>Your device's built-in security features protect your data</li>
+                            <li>We recommend using device lock features (Face ID, Touch ID, passcode) for additional security</li>
+                            <li>Photos are stored in the app's secure container, isolated from other apps</li>
+                            <li>No data is transmitted over the internet without your explicit action (iCloud sync)</li>
+                        </ul>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>9. Permissions</h3>
+                        <p>Phone Brain requests the following permissions:</p>
+                        <ul>
+                            <li><strong>Camera:</strong> To take photos for profiles (optional)</li>
+                            <li><strong>Photo Library:</strong> To select existing photos for profiles (optional)</li>
+                            <li><strong>iCloud:</strong> To sync data across your devices (optional)</li>
+                        </ul>
+                        <p>All permissions are optional and you can use the app without granting them. You can modify these permissions at any time in your device settings.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>10. Changes to This Privacy Policy</h3>
+                        <p>
+                            We may update this privacy policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any changes will be reflected in the app and will include an updated "Last Updated" date. We will notify users of any material changes through the app or other appropriate means.
+                        </p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>11. Contact Us</h3>
+                        <p>If you have questions about this privacy policy or our data practices, please contact us at:</p>
+                        <div class="contact-info">
+                            <strong>Email:</strong> sorapps.help@gmail.com
+                        </div>
+                        <p>We will respond to privacy-related inquiries within a reasonable timeframe.</p>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h3>12. Your Rights</h3>
+                        <p>Since all data is stored locally on your device, you have complete control over your information:</p>
+                        <ul>
+                            <li>You have complete control over your information</li>
+                            <li>You can modify or delete any data at any time</li>
+                            <li>No data is shared with us or third parties without your consent</li>
+                            <li>Your privacy is maintained entirely on your device</li>
+                            <li>You can export your data by taking screenshots or manually copying information</li>
+                            <li>You can permanently delete all data by uninstalling the app</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight">
+                        <strong>🔐 Privacy Guarantee:</strong> Phone Brain is designed with privacy as a core principle. Your personal information never leaves your device unless you explicitly choose to use iCloud sync, which is entirely under your control. We cannot access your data, and neither can anyone else without physical access to your unlocked device.
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">© 2024 Phone Brain. All rights reserved.</p>
+                <div class="contact-info">
+                    <p><strong>Support Email:</strong> sorapps.help@gmail.com</p>
+                    <p>We typically respond within 24-48 hours during business days.</p>
+                </div>
+                <p class="app-version">Version 1.0 • Built with privacy in mind</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId, element) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            element.classList.add('active');
+            
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQ items
+            const allFaqItems = document.querySelectorAll('.faq-item');
+            allFaqItems.forEach(item => item.classList.remove('active'));
+            
+            // Toggle current item
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize with How to Use section
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('how-to-use', document.querySelector('.nav-item'));
+        });
+    </script>
+</body>
+</html>
