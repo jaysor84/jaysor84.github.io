@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SorApps - Innovative Apps for Improved Everyday Life</title>
+    <style>
+        /* --- Google Font Import --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        /* --- CSS Variables (for easy theme customization) --- */
+        :root {
+            --bg-color: #121212; /* A very dark grey, not pure black */
+            --primary-color: #007AFF; /* A vibrant, professional blue */
+            --card-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-color-muted: #888;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- Global Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Header / Navigation --- */
+        .main-header {
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .main-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding-top: 140px; /* Space for fixed header */
+            padding-bottom: 80px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-color-muted);
+        }
+
+        /* --- App Showcase Section --- */
+        .app-showcase {
+            padding: 4rem 0;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 2.5rem;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .app-card {
+            text-decoration: none;
+            color: var(--text-color);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .app-icon {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1rem;
+            border-radius: 22.5%; /* This gives the classic iOS icon shape */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--card-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .app-card:hover .app-icon {
+             box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 10px 10px rgba(0,0,0,0.25);
+        }
+
+        .app-icon img {
+            width: 70%;
+            height: auto;
+        }
+        
+        /* Placeholder Icon Styles */
+        .icon-placeholder {
+            font-size: 4rem;
+            color: var(--primary-color);
+            filter: drop-shadow(0 0 5px rgba(0, 122, 255, 0.4));
+        }
+
+        .app-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-card p {
+            font-size: 0.9rem;
+            color: var(--text-color-muted);
+            padding: 0 5px;
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid #2a2a2a;
+            color: var(--text-color-muted);
+        }
+        
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 2rem;
+            }
+            .app-icon {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-header .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .main-nav {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+            .main-nav a {
+                margin: 0 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">Sor<span>Apps</span></a>
+            <nav class="main-nav">
+                <a href="#apps">Our Apps</a>
+                <a href="mailto:sorapps.help@gmail.com">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Innovative apps for improved everyday life.</h1>
+                <p>We build simple, powerful, and beautifully designed tools to support people in their everyday life.</p>
+            </div>
+        </section>
+
+        <section id="apps" class="app-showcase">
+            <div class="container">
+                <div class="app-grid">
+
+                    <!-- App 1: Phone Brain - LINK UPDATED -->
+                    <a href="PhoneBrain.html" class="app-card">
+                        <div class="app-icon">
+                            <!--
+                                TODO: Replace this placeholder with a real icon image:
+                                <img src="images/phone-brain-icon.png" alt="Phone Brain Icon">
+                            -->
+                            <div class="icon-placeholder">🧠</div>
+                        </div>
+                        <h3>Phone Brain</h3>
+                        <p>A personal assistant to help recall familiar people, places, and things.</p>
+                    </a>
+
+                    <!-- App 2: AnchorPoint - LINK UPDATED -->
+                    <a href="AnchorPoint.html" class="app-card">
+                        <div class="app-icon">
+                            <!--
+                                TODO: Replace this placeholder with a real icon image:
+                                <img src="images/anchorpoint-icon.png" alt="AnchorPoint Icon">
+                            -->
+                            <div class="icon-placeholder">⚓️</div>
+                        </div>
+                        <h3>AnchorPoint</h3>
+                        <p>Your Personal Memory Anchor</p>
+                    </a>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 SorApps. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
