@@ -25,7 +25,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #007aff, #0056b3);
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -96,8 +96,8 @@
 
         .tab-button.active {
             background: white;
-            border-bottom-color: #007aff;
-            color: #007aff;
+            border-bottom-color: #1a73e8;
+            color: #1a73e8;
         }
 
         .tab-content {
@@ -116,7 +116,7 @@
         }
 
         h2 {
-            color: #007aff;
+            color: #1a73e8;
             margin-bottom: 20px;
             font-size: 1.8em;
             border-bottom: 2px solid #e0e0e0;
@@ -124,7 +124,7 @@
         }
 
         h3 {
-            color: #0056b3;
+            color: #0d47a1;
             margin: 25px 0 15px 0;
             font-size: 1.3em;
         }
@@ -139,7 +139,7 @@
 
         .faq-question {
             padding: 15px 20px;
-            background: #007aff;
+            background: #1a73e8;
             color: white;
             cursor: pointer;
             font-weight: 500;
@@ -148,7 +148,7 @@
         }
 
         .faq-question:hover {
-            background: #0056b3;
+            background: #0d47a1;
         }
 
         .faq-question::after {
@@ -175,7 +175,7 @@
 
         .faq-answer.active {
             padding: 20px;
-            max-height: 500px;
+            max-height: 800px;
         }
 
         .instruction-step {
@@ -184,11 +184,11 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            border-left: 4px solid #007aff;
+            border-left: 4px solid #1a73e8;
         }
 
         .step-number {
-            background: #007aff;
+            background: #1a73e8;
             color: white;
             width: 30px;
             height: 30px;
@@ -248,7 +248,51 @@
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
-            border-left: 4px solid #007aff;
+            border-left: 4px solid #1a73e8;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(26, 115, 232, 0.3);
+        }
+
+        .category-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #721c24;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #155724;
         }
 
         @media (max-width: 768px) {
@@ -270,6 +314,10 @@
             .tab-content {
                 padding: 20px;
             }
+
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
@@ -277,7 +325,7 @@
     <header>
         <div class="container">
             <h1>AnchorPoint Support</h1>
-            <p>Your Personal Memory Anchor - Help & Documentation</p>
+            <!-- REMOVE: subtitle line -->
         </div>
     </header>
 
@@ -289,6 +337,7 @@
                 <button class="tab-button active" onclick="openTab(event, 'instructions')">How to Use</button>
                 <button class="tab-button" onclick="openTab(event, 'faq')">FAQs</button>
                 <button class="tab-button" onclick="openTab(event, 'privacy')">Privacy Policy</button>
+                <button class="tab-button" onclick="openTab(event, 'updates')">Recent Updates</button>
             </div>
 
             <!-- Instructions Tab -->
@@ -296,107 +345,208 @@
                 <h2>How to Use AnchorPoint</h2>
                 
                 <div class="highlight">
-                    <strong>Welcome to AnchorPoint!</strong> This comprehensive guide will help you make the most of your personal memory anchor app.
+                    <strong>Welcome to AnchorPoint!</strong> This comprehensive guide will help you make the most of your personal memory anchor app with customizable categories, smart appointment management, and powerful journaling tools.
                 </div>
 
                 <h3>🏠 Getting Started</h3>
                 <div class="instruction-step">
                     <span class="step-number">1</span>
-                    <strong>Download & Launch:</strong> After downloading AnchorPoint from the App Store, open the app. You'll see a beautiful launch screen followed by the main dashboard.
+                    <strong>Download & Launch:</strong> After downloading AnchorPoint from the App Store, open the app. You'll see a beautiful launch screen followed by the main journal dashboard with customizable category buttons.
                 </div>
 
                 <div class="instruction-step">
                     <span class="step-number">2</span>
-                    <strong>Explore the Tabs:</strong> AnchorPoint has four main sections accessible via the bottom tab bar:
+                    <strong>Explore the Four Tabs:</strong> AnchorPoint has four main sections accessible via the bottom tab bar:
                     <ul>
-                        <li><strong>Journal:</strong> Create different types of journal entries</li>
-                        <li><strong>Timeline:</strong> View and filter your entries chronologically</li>
-                        <li><strong>Appointments:</strong> Manage medical and therapy appointments</li>
-                        <li><strong>Information:</strong> Access app settings and privacy policy</li>
+                        <li><strong>Journal:</strong> Create entries using customizable categories with dynamic custom fields</li>
+                        <li><strong>Timeline:</strong> View, filter, edit, and export your entries chronologically</li>
+                        <li><strong>Appointments:</strong> Manage medical and therapy appointments with smart notifications</li>
+                        <li><strong>Information:</strong> Customize categories, manage settings, and access privacy policy</li>
                     </ul>
                 </div>
 
-                <h3>📝 Using the Journal</h3>
+                <h3>📝 Using the Enhanced Journal System</h3>
                 <div class="instruction-step">
                     <span class="step-number">3</span>
-                    <strong>Creating Entries:</strong> Tap any category button on the main screen to create a new journal entry:
-                    <ul>
-                        <li><strong>Memory Loss:</strong> Record instances of memory difficulties</li>
-                        <li><strong>Doctor Appointment:</strong> Log medical visits and outcomes</li>
-                        <li><strong>Mood Log:</strong> Track your emotional well-being</li>
-                        <li><strong>Medication Issue:</strong> Note medication problems or changes</li>
-                        <li><strong>Sleep Issue:</strong> Record sleep disturbances</li>
-                        <li><strong>Exercise:</strong> Log physical activities</li>
-                        <li><strong>Sickness:</strong> Track illness symptoms</li>
-                        <li><strong>Other:</strong> Any other important notes</li>
-                    </ul>
+                    <strong>Default Categories:</strong> AnchorPoint comes with 10 pre-configured categories, each with unique icons and specialized fields:
+                </div>
+
+                <div class="category-grid">
+                    <div class="category-card">
+                        <div class="category-icon">🧠</div>
+                        <div class="category-name">Memory Loss</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🩺</div>
+                        <div class="category-name">Doctor Appointment</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">😊</div>
+                        <div class="category-name">Mood Log</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💊</div>
+                        <div class="category-name">Medication</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🌙</div>
+                        <div class="category-name">Sleep</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🚶</div>
+                        <div class="category-name">Exercise</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🤒</div>
+                        <div class="category-name">Sickness</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">⚡</div>
+                        <div class="category-name">Energy Levels</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🍽️</div>
+                        <div class="category-name">Food Intake</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">✏️</div>
+                        <div class="category-name">Other</div>
+                    </div>
                 </div>
 
                 <div class="instruction-step">
                     <span class="step-number">4</span>
-                    <strong>Adding Photos:</strong> For any journal entry, you can:
+                    <strong>Creating Journal Entries:</strong> Tap any category button to create a new entry:
                     <ul>
-                        <li>Select a photo from your library using "Add Photo"</li>
-                        <li>Take a new photo using "Take Photo"</li>
-                        <li>Remove photos by tapping "Remove Photo"</li>
+                        <li><strong>Smart Forms:</strong> Each category may have custom fields (Sleep category includes "Sleep Hours" and "Times Awake")</li>
+                        <li><strong>Mood Tracking:</strong> Mood Log entries include mood type selection (Happy, Sad, Anxious, Angry, Confused, Frustrated)</li>
+                        <li><strong>Required Fields:</strong> Some custom fields may be marked as required and must be filled before saving</li>
+                        <li><strong>Notes Section:</strong> Always available for detailed text entries with speech-to-text support</li>
                     </ul>
                 </div>
 
                 <div class="instruction-step">
                     <span class="step-number">5</span>
-                    <strong>Voice Notes:</strong> Use the microphone button to dictate your notes instead of typing. The app will convert your speech to text automatically.
+                    <strong>Custom Field Types:</strong> AnchorPoint supports five types of custom fields:
+                    <ul>
+                        <li><strong>Text:</strong> Free-form text input</li>
+                        <li><strong>Number:</strong> Numeric input with decimal pad</li>
+                        <li><strong>Time:</strong> Time picker with formatted display</li>
+                        <li><strong>Date:</strong> Date picker with calendar interface</li>
+                        <li><strong>Yes/No:</strong> Toggle switch for boolean values</li>
+                    </ul>
                 </div>
 
-                <h3>📅 Managing Appointments</h3>
                 <div class="instruction-step">
                     <span class="step-number">6</span>
-                    <strong>Adding Appointments:</strong> Go to the Appointments tab and tap the "+" button:
+                    <strong>Adding Photos:</strong> For any journal entry, you can:
                     <ul>
-                        <li>Enter the provider's name</li>
-                        <li>Select appointment type (Doctor, Physiotherapist, Occupational Therapist, etc.)</li>
-                        <li>Choose date and time</li>
-                        <li>Add notes if needed</li>
+                        <li>Select a photo from your library using "Add Photo"</li>
+                        <li>Take a new photo using "Take Photo" with camera access</li>
+                        <li>View full-screen photos by tapping them</li>
+                        <li>Remove photos by tapping "Remove Photo"</li>
                     </ul>
                 </div>
 
                 <div class="instruction-step">
                     <span class="step-number">7</span>
-                    <strong>Setting Notifications:</strong> Enable reminders for your appointments:
+                    <strong>Voice-to-Text Dictation:</strong> Use the microphone button to dictate notes:
                     <ul>
-                        <li><strong>Morning of appointment:</strong> Get notified at 9 AM on the day</li>
-                        <li><strong>3 days before:</strong> Early reminder to prepare</li>
-                        <li><strong>1 week before:</strong> Advance notice for planning</li>
+                        <li>Tap the microphone icon in the notes section</li>
+                        <li>Speak clearly - the app converts speech to text in real-time</li>
+                        <li>Tap "Stop Recording" when finished</li>
+                        <li>The app will request microphone and speech recognition permissions</li>
                     </ul>
                 </div>
 
+                <h3>📅 Advanced Appointment Management</h3>
                 <div class="instruction-step">
                     <span class="step-number">8</span>
-                    <strong>Managing Appointments:</strong>
+                    <strong>Creating Appointments:</strong> Go to the Appointments tab and tap the "+" button:
                     <ul>
-                        <li>Tap "Edit" to modify appointment details</li>
-                        <li>Swipe left on any appointment to delete it</li>
-                        <li>View upcoming and past appointments in separate sections</li>
+                        <li><strong>Provider Name:</strong> Enter the healthcare provider's name</li>
+                        <li><strong>Appointment Type:</strong> Choose from 15+ specialized types including Doctor, Neurologist, Physiotherapist, Speech Therapist, etc.</li>
+                        <li><strong>Date & Time:</strong> Select appointment date and time</li>
+                        <li><strong>Notes:</strong> Add any relevant appointment details</li>
                     </ul>
                 </div>
 
-                <h3>📊 Using the Timeline</h3>
                 <div class="instruction-step">
                     <span class="step-number">9</span>
-                    <strong>Viewing Entries:</strong> The Timeline shows all your journal entries in chronological order. Use the filters to:
+                    <strong>Smart Notification System:</strong> Set up custom reminders for each appointment:
                     <ul>
-                        <li>Set date ranges to view specific periods</li>
-                        <li>Filter by category to see only certain types of entries</li>
-                        <li>Export your data using the share button</li>
+                        <li><strong>Morning of appointment (9:00 AM):</strong> Day-of reminder to ensure you don't forget</li>
+                        <li><strong>3 days before:</strong> Advance notice to prepare, arrange transportation, or gather questions</li>
+                        <li><strong>1 week before:</strong> Early planning reminder for complex appointments</li>
+                        <li>Toggle notifications on/off independently for each appointment</li>
                     </ul>
                 </div>
 
                 <div class="instruction-step">
                     <span class="step-number">10</span>
-                    <strong>Editing & Deleting:</strong>
+                    <strong>Managing Appointments:</strong>
                     <ul>
-                        <li>Swipe left on any entry to edit or delete it</li>
-                        <li>Tap on photos to view them full-screen</li>
-                        <li>Use the export feature to share your timeline with healthcare providers</li>
+                        <li><strong>Edit:</strong> Tap "Edit" button to modify appointment details</li>
+                        <li><strong>Delete:</strong> Swipe left on any appointment to delete it</li>
+                        <li><strong>View Organization:</strong> Upcoming and past appointments are automatically separated</li>
+                        <li><strong>Batch Actions:</strong> Custom appointment types can be managed in Information settings</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Enhanced Timeline & Data Management</h3>
+                <div class="instruction-step">
+                    <span class="step-number">11</span>
+                    <strong>Timeline Filtering:</strong> The Timeline shows all entries with powerful filtering options:
+                    <ul>
+                        <li><strong>Date Range:</strong> Set custom start and end dates</li>
+                        <li><strong>Category Filter:</strong> View entries from specific categories only</li>
+                        <li><strong>Custom Field Display:</strong> See custom field values alongside notes</li>
+                        <li><strong>Mood Indicators:</strong> Mood entries show mood type information</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-step">
+                    <span class="step-number">12</span>
+                    <strong>Entry Management:</strong>
+                    <ul>
+                        <li><strong>Edit Entries:</strong> Swipe left and tap "Edit" to modify any entry</li>
+                        <li><strong>Delete Entries:</strong> Swipe left and tap "Delete" to remove entries</li>
+                        <li><strong>Photo Viewing:</strong> Tap photos to view them full-screen</li>
+                        <li><strong>Export Data:</strong> Use the share button to export filtered timeline data</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-step">
+                    <span class="step-number">13</span>
+                    <strong>Data Export Features:</strong>
+                    <ul>
+                        <li>Export generates comprehensive text reports</li>
+                        <li>Includes all entry details, custom fields, and mood information</li>
+                        <li>Perfect for sharing with healthcare providers</li>
+                        <li>Respects your current filter settings</li>
+                    </ul>
+                </div>
+
+                <h3>⚙️ Customization & Settings</h3>
+                <div class="instruction-step">
+                    <span class="step-number">14</span>
+                    <strong>Category Management:</strong> In the Information tab, access Category Settings to:
+                    <ul>
+                        <li><strong>Add Categories:</strong> Create new custom categories with chosen icons</li>
+                        <li><strong>Edit Categories:</strong> Modify names, icons, and order</li>
+                        <li><strong>Custom Fields:</strong> Add specialized fields to any category</li>
+                        <li><strong>Reorder:</strong> Arrange categories in your preferred order</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-step">
+                    <span class="step-number">15</span>
+                    <strong>Appointment Type Settings:</strong> Customize appointment types:
+                    <ul>
+                        <li>Add new appointment types for specialized providers</li>
+                        <li>Edit existing appointment type names</li>
+                        <li>Remove unused appointment types</li>
+                        <li>Organize types for easier selection</li>
                     </ul>
                 </div>
 
@@ -404,17 +554,22 @@
                     <div class="feature-card">
                         <div class="feature-icon">🔒</div>
                         <h3>Private & Secure</h3>
-                        <p>All your data stays on your device. We never access or store your personal information.</p>
+                        <p>All data stays on your device using Apple's SwiftData. No cloud storage, no external access.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Fully Customizable</h3>
+                        <p>Create custom categories, fields, and appointment types tailored to your specific needs.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🔔</div>
                         <h3>Smart Notifications</h3>
-                        <p>Get reminded of appointments with customizable notification timing.</p>
+                        <p>Flexible appointment reminders with multiple timing options for better preparation.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📤</div>
-                        <h3>Easy Sharing</h3>
-                        <p>Export your timeline to share with doctors, family, or caregivers.</p>
+                        <h3>Professional Export</div>
+                        <p>Generate detailed reports with custom field data for healthcare provider sharing.</p>
                     </div>
                 </div>
             </div>
@@ -425,106 +580,138 @@
 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFAQ(this)">
-                        What is AnchorPoint and who is it for?
+                        What makes AnchorPoint different from other journaling apps?
                     </div>
                     <div class="faq-answer">
-                        <p>AnchorPoint is a personal journaling and appointment management app designed specifically for individuals with dementia, memory issues, or their caregivers. It helps track daily experiences, mood changes, medical appointments, and other important life events in a simple, secure way.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        Is my personal data safe and private?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely! AnchorPoint stores all your data locally on your device using Apple's secure SwiftData framework. We do not have access to your journal entries, photos, or any personal information. Your data never leaves your device unless you choose to export and share it yourself.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        How do I set up appointment notifications?
-                    </div>
-                    <div class="faq-answer">
-                        <p>When creating or editing an appointment, you'll see three notification options:</p>
+                        <p>AnchorPoint is specifically designed for individuals with memory challenges and their caregivers. Key differentiators include:</p>
                         <ul>
-                            <li><strong>Morning of appointment:</strong> Notifies you at 9:00 AM on the day of your appointment</li>
-                            <li><strong>3 days before:</strong> Gives you a 3-day advance notice</li>
-                            <li><strong>1 week before:</strong> Provides a full week's notice for planning</li>
+                            <li><strong>Medical Focus:</strong> Categories and features tailored for health tracking</li>
+                            <li><strong>Custom Fields:</strong> Dynamic forms that adapt to different entry types</li>
+                            <li><strong>Appointment Integration:</strong> Comprehensive medical appointment management</li>
+                            <li><strong>Privacy-First:</strong> All data stays on your device, never uploaded to servers</li>
+                            <li><strong>Export Capability:</strong> Generate professional reports for healthcare providers</li>
+                            <li><strong>Speech Recognition:</strong> Voice-to-text for easier entry creation</li>
                         </ul>
-                        <p>Simply toggle on the notifications you want. The app will ask for notification permissions when you first enable this feature.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFAQ(this)">
-                        Can I add photos to my journal entries?
+                        How do custom fields work and when should I use them?
                     </div>
                     <div class="faq-answer">
-                        <p>Yes! You can add photos to any journal entry in two ways:</p>
+                        <p>Custom fields allow you to collect specific information for different categories:</p>
                         <ul>
-                            <li><strong>Choose from library:</strong> Select existing photos from your device</li>
-                            <li><strong>Take new photo:</strong> Use your device's camera to capture new images</li>
+                            <li><strong>Sleep Category:</strong> Automatically includes "Sleep Hours" (number) and "Times Awake" (number)</li>
+                            <li><strong>Medication Category:</strong> You could add fields like "Medication Name" (text), "Dosage" (text), "Time Taken" (time)</li>
+                            <li><strong>Exercise Category:</strong> Add "Duration" (number), "Activity Type" (text), "Intensity Level" (text)</li>
                         </ul>
-                        <p>Photos are stored securely with your journal entries and can help provide visual context for your memories and experiences.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        How does the speech-to-text feature work?
-                    </div>
-                    <div class="faq-answer">
-                        <p>The speech-to-text feature uses Apple's built-in speech recognition. When creating a journal entry:</p>
+                        <p>To add custom fields:</p>
                         <ol>
-                            <li>Tap the microphone button in the notes section</li>
-                            <li>Speak clearly into your device</li>
-                            <li>The app will convert your speech to text automatically</li>
-                            <li>Tap the stop button when finished</li>
+                            <li>Go to Information → Category Settings</li>
+                            <li>Select a category and tap "Edit"</li>
+                            <li>Add custom fields with names, types, and required status</li>
+                            <li>Fields appear automatically when creating entries in that category</li>
                         </ol>
-                        <p>This feature requires microphone and speech recognition permissions, which the app will request when first used.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFAQ(this)">
-                        What types of appointments can I track?
+                        How secure is my personal health information in AnchorPoint?
                     </div>
                     <div class="faq-answer">
-                        <p>AnchorPoint includes pre-defined appointment types relevant to dementia care:</p>
+                        <p>AnchorPoint prioritizes your privacy with multiple security layers:</p>
+                        <ul>
+                            <li><strong>Local Storage Only:</strong> All data is stored on your device using Apple's SwiftData framework</li>
+                            <li><strong>No Cloud Sync:</strong> Your information never leaves your device unless you explicitly export it</li>
+                            <li><strong>Device Security:</strong> Protected by your device's passcode, Face ID, or Touch ID</li>
+                            <li><strong>Sandboxed App:</strong> iOS isolates app data from other applications</li>
+                            <li><strong>No Analytics:</strong> We don't collect usage data or personal information</li>
+                        </ul>
+                        <p>Even if you delete the app, your data is completely removed from the device.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What appointment types are available and can I add my own?
+                    </div>
+                    <div class="faq-answer">
+                        <p>AnchorPoint includes 15+ pre-configured appointment types relevant to dementia and memory care:</p>
                         <ul>
                             <li>Doctor</li>
                             <li>Specialist</li>
-                            <li>Physiotherapist</li>
-                            <li>Occupational Therapist</li>
-                            <li>Speech Therapist</li>
                             <li>Neurologist</li>
                             <li>Psychiatrist</li>
                             <li>Psychologist</li>
+                            <li>Physiotherapist</li>
+                            <li>Occupational Therapist</li>
+                            <li>Speech Therapist</li>
                             <li>Social Worker</li>
                             <li>Dentist</li>
                             <li>Optometrist</li>
                             <li>Audiologist</li>
                             <li>Dietitian</li>
                             <li>Podiatrist</li>
+                            <li>Other (custom)</li>
                         </ul>
-                        <p>You can also select "Other" and enter a custom appointment type for any providers not listed.</p>
+                        <p>To add custom appointment types, go to Information → Appointment Type Settings and create new types as needed.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFAQ(this)">
-                        How do I export my data to share with doctors?
+                        How do the different notification options work for appointments?
                     </div>
                     <div class="faq-answer">
-                        <p>To export your timeline data:</p>
-                        <ol>
-                            <li>Go to the Timeline tab</li>
-                            <li>Set your desired date range and category filters</li>
-                            <li>Tap the export button (share icon) in the top-right</li>
-                            <li>Choose how to share: email, messages, save to files, etc.</li>
-                        </ol>
-                        <p>The export creates a text-based report with all your filtered entries, including dates, categories, notes, and mood information. Photos are noted but not included in the text export.</p>
+                        <p>AnchorPoint offers three flexible notification timing options:</p>
+                        <ul>
+                            <li><strong>Morning of appointment (9:00 AM):</strong> Day-of reminder to ensure you don't forget</li>
+                            <li><strong>3 days before:</strong> Advance notice to prepare, arrange transportation, or gather questions</li>
+                            <li><strong>1 week before:</strong> Early planning reminder for complex appointments</li>
+                        </ul>
+                        <p>You can enable any combination of these notifications for each appointment. The app will request notification permissions when you first enable this feature.</p>
+                        <p><strong>Troubleshooting:</strong> If notifications aren't working, check Settings → AnchorPoint → Notifications and ensure they're enabled.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How does the mood tracking system work?
+                    </div>
+                    <div class="faq-answer">
+                        <p>When creating entries in the "Mood Log" category, you can select from six mood types:</p>
+                        <ul>
+                            <li><strong>Happy:</strong> Positive, content feelings</li>
+                            <li><strong>Sad:</strong> Low, melancholy emotions</li>
+                            <li><strong>Anxious:</strong> Worried, nervous feelings</li>
+                            <li><strong>Angry:</strong> Frustrated, irritated emotions</li>
+                            <li><strong>Confused:</strong> Disoriented, unclear thinking</li>
+                            <li><strong>Frustrated:</strong> Annoyed, impatient feelings</li>
+                        </ul>
+                        <p>Mood information appears in the Timeline view and is included in exported reports, helping track emotional patterns over time.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do I effectively use the Timeline for tracking patterns?
+                    </div>
+                    <div class="faq-answer">
+                        <p>The Timeline is designed for pattern recognition and data analysis:</p>
+                        <ul>
+                            <li><strong>Date Filtering:</strong> Set specific date ranges to examine patterns (e.g., "How was my sleep last month?")</li>
+                            <li><strong>Category Filtering:</strong> Focus on specific types of entries (e.g., only medication entries)</li>
+                            <li><strong>Custom Field Review:</strong> See structured data like sleep hours, medication times, etc.</li>
+                            <li><strong>Export for Analysis:</strong> Generate reports to share with healthcare providers</li>
+                        </ul>
+                        <p><strong>Pro Tips:</strong></p>
+                        <ul>
+                            <li>Review weekly patterns by setting 7-day date ranges</li>
+                            <li>Look for correlations between different categories (e.g., sleep and mood)</li>
+                            <li>Export data before doctor appointments for comprehensive discussions</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -533,53 +720,100 @@
                         Can I edit or delete entries after creating them?
                     </div>
                     <div class="faq-answer">
-                        <p>Yes! You can manage your entries in the Timeline view:</p>
+                        <p>Yes! AnchorPoint provides full editing capabilities:</p>
+                        <p><strong>For Journal Entries (Timeline tab):</strong></p>
                         <ul>
-                            <li><strong>To edit:</strong> Swipe left on any entry and tap "Edit"</li>
-                            <li><strong>To delete:</strong> Swipe left on any entry and tap "Delete"</li>
+                            <li>Swipe left on any entry and tap "Edit" to modify all fields</li>
+                            <li>Swipe left and tap "Delete" to remove entries permanently</li>
+                            <li>Editing preserves all custom field data and allows changes to any component</li>
                         </ul>
-                        <p>For appointments, you can also tap the "Edit" button directly on each appointment row, or swipe left to delete.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        What happens to my data if I delete the app?
-                    </div>
-                    <div class="faq-answer">
-                        <p>If you delete AnchorPoint from your device, all your journal entries, appointments, and photos will be permanently removed. This data cannot be recovered since it's stored locally on your device.</p>
-                        <p><strong>Important:</strong> Before deleting the app, make sure to export any important timeline data you want to keep using the export feature in the Timeline tab.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        Why won't the app send me notifications?
-                    </div>
-                    <div class="faq-answer">
-                        <p>If notifications aren't working, check these common issues:</p>
-                        <ol>
-                            <li><strong>Permissions:</strong> Go to Settings > AnchorPoint > Notifications and ensure they're enabled</li>
-                            <li><strong>Do Not Disturb:</strong> Check if Do Not Disturb mode is blocking notifications</li>
-                            <li><strong>Past appointments:</strong> Notifications won't be scheduled for appointments in the past</li>
-                            <li><strong>Device storage:</strong> Low storage can sometimes affect notification scheduling</li>
-                        </ol>
-                        <p>If problems persist, try toggling notifications off and on again in the appointment settings.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        How can family members or caregivers help?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Family members and caregivers can assist by:</p>
+                        <p><strong>For Appointments:</strong></p>
                         <ul>
-                            <li><strong>Initial setup:</strong> Help set up the app and create the first few entries together</li>
-                            <li><strong>Regular check-ins:</strong> Encourage daily use and help with entries when needed</li>
-                            <li><strong>Appointment management:</strong> Assist with entering appointment details and setting up notifications</li>
-                            <li><strong>Data review:</strong> Use the Timeline export feature to share information with healthcare providers</li>
-                            <li><strong>Backup routine:</strong> Help establish a regular habit of exporting data as a backup</li>
+                            <li>Tap "Edit" button directly on appointment rows</li>
+                            <li>Swipe left to delete appointments</li>
+                            <li>Notification settings are preserved when editing</li>
+                        </ul>
+                        <p><strong>Warning:</strong> Deleted entries cannot be recovered, so export important data before major cleanups.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How does the speech-to-text feature work and what are its limitations?
+                    </div>
+                    <div class="faq-answer">
+                        <p>AnchorPoint uses Apple's speech recognition technology for voice dictation:</p>
+                        <p><strong>How to Use:</strong></p>
+                        <ol>
+                            <li>In any journal entry, tap the microphone button in the notes section</li>
+                            <li>Speak clearly and at a normal pace</li>
+                            <li>The app converts speech to text in real-time</li>
+                            <li>Tap "Stop Recording" when finished</li>
+                        </ol>
+                        <p><strong>Requirements:</strong></p>
+                        <ul>
+                            <li>Microphone access permission</li>
+                            <li>Speech recognition permission</li>
+                            <li>Internet connection (for Apple's speech processing)</li>
+                            <li>Quiet environment for best accuracy</li>
+                        </ul>
+                        <p><strong>Limitations:</strong></p>
+                        <ul>
+                            <li>Medical terminology may not be recognized perfectly</li>
+                            <li>Background noise can reduce accuracy</li>
+                            <li>Requires iOS speech recognition to be enabled</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What happens to my data if I get a new device or delete the app?
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Device Replacement:</strong></p>
+                        <p>AnchorPoint data does NOT automatically transfer to new devices because it's stored locally for privacy. Before switching devices:</p>
+                        <ol>
+                            <li>Use the Timeline export feature to save your data</li>
+                            <li>Email the exported files to yourself</li>
+                            <li>Save photos separately if needed</li>
+                            <li>Install AnchorPoint on your new device and start fresh</li>
+                        </ol>
+                        <p><strong>App Deletion:</strong></p>
+                        <ul>
+                            <li>All journal entries, appointments, photos, and settings are permanently deleted</li>
+                            <li>Data cannot be recovered once the app is deleted</li>
+                            <li>Always export important data before deletion</li>
+                        </ul>
+                        <p><strong>Best Practice:</strong> Regularly export your timeline data as a backup, especially before iOS updates or device changes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How can family members or caregivers help with AnchorPoint?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Family members and caregivers can provide valuable support:</p>
+                        <p><strong>Initial Setup:</strong></p>
+                        <ul>
+                            <li>Help configure custom categories and fields relevant to specific conditions</li>
+                            <li>Set up appointment types for regular healthcare providers</li>
+                            <li>Create the first few entries together to establish patterns</li>
+                            <li>Configure notification preferences for appointments</li>
+                        </ul>
+                        <p><strong>Ongoing Support:</strong></p>
+                        <ul>
+                            <li>Assist with daily entry creation, especially for complex custom fields</li>
+                            <li>Help with photo additions and speech-to-text when needed</li>
+                            <li>Regularly export timeline data for backup and healthcare provider sharing</li>
+                            <li>Monitor appointment notifications and provide additional reminders</li>
+                        </ul>
+                        <p><strong>Healthcare Coordination:</strong></p>
+                        <ul>
+                            <li>Generate and share timeline exports with doctors</li>
+                            <li>Review patterns in the data to discuss with healthcare providers</li>
+                            <li>Help interpret custom field data trends</li>
                         </ul>
                     </div>
                 </div>
@@ -591,14 +825,117 @@
                     <div class="faq-answer">
                         <p>For technical support, please email us at <strong>sorapps.help@gmail.com</strong> with:</p>
                         <ul>
-                            <li>Your device model and iOS version</li>
-                            <li>App version (found in Information tab)</li>
-                            <li>Detailed description of the issue</li>
-                            <li>Steps to reproduce the problem</li>
-                            <li>Any error messages you're seeing</li>
+                            <li><strong>Device Information:</strong> iPhone/iPad model and iOS version</li>
+                            <li><strong>App Version:</strong> Found in Information tab</li>
+                            <li><strong>Detailed Description:</strong> What you were trying to do when the issue occurred</li>
+                            <li><strong>Steps to Reproduce:</strong> How to make the problem happen again</li>
+                            <li><strong>Error Messages:</strong> Any specific error text or messages</li>
+                            <li><strong>Screenshots:</strong> If applicable, include screenshots of the issue</li>
+                        </ul>
+                        <p><strong>Common Issues & Quick Fixes:</strong></p>
+                        <ul>
+                            <li><strong>Notifications not working:</strong> Check Settings → AnchorPoint → Notifications</li>
+                            <li><strong>Speech recognition fails:</strong> Check Settings → Privacy & Security → Speech Recognition</li>
+                            <li><strong>Camera not working:</strong> Check Settings → Privacy & Security → Camera</li>
+                            <li><strong>App crashes:</strong> Try restarting your device and updating to the latest iOS version</li>
                         </ul>
                         <p>We typically respond within 24-48 hours and will work with you to resolve any issues.</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- Recent Updates Tab -->
+            <div id="updates" class="tab-content">
+                <h2>Recent Updates & New Features</h2>
+                
+                <div class="success-box">
+                    <strong>Latest Version Features:</strong> AnchorPoint has been completely redesigned with powerful new capabilities for better memory tracking and healthcare management.
+                </div>
+
+                <h3>🎯 Custom Categories & Fields</h3>
+                <div class="instruction-step">
+                    <strong>NEW: Dynamic Category System</strong>
+                    <ul>
+                        <li>Create unlimited custom categories with personalized icons</li>
+                        <li>Add specialized fields to any category (text, number, date, time, yes/no)</li>
+                        <li>Mark fields as required for consistent data collection</li>
+                        <li>Reorder categories to match your priorities</li>
+                        <li>Sleep category now includes default "Sleep Hours" and "Times Awake" fields</li>
+                    </ul>
+                </div>
+
+                <h3>🏥 Enhanced Appointment Management</h3>
+                <div class="instruction-step">
+                    <strong>NEW: Professional Appointment System</strong>
+                    <ul>
+                        <li>15+ specialized appointment types including Neurologist, Speech Therapist, etc.</li>
+                        <li>Flexible notification system with three timing options</li>
+                        <li>Custom appointment types for specialized providers</li>
+                        <li>Automatic separation of upcoming and past appointments</li>
+                        <li>Comprehensive appointment editing and management</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Advanced Timeline & Export</h3>
+                <div class="instruction-step">
+                    <strong>IMPROVED: Timeline Analysis</strong>
+                    <ul>
+                        <li>Display custom field values directly in timeline entries</li>
+                        <li>Enhanced filtering by date range and category</li>
+                        <li>Professional export reports including all custom field data</li>
+                        <li>Full-screen photo viewing with tap-to-expand</li>
+                        <li>Comprehensive entry editing from timeline view</li>
+                    </ul>
+                </div>
+
+                <h3>😊 Enhanced Mood Tracking</h3>
+                <div class="instruction-step">
+                    <strong>EXPANDED: Mood System</strong>
+                    <ul>
+                        <li>Six mood types: Happy, Sad, Anxious, Angry, Confused, Frustrated</li>
+                        <li>Mood information displayed in timeline and exports</li>
+                        <li>Automatic mood field for Mood Log category entries</li>
+                        <li>Historical mood pattern tracking</li>
+                    </ul>
+                </div>
+
+                <h3>🔧 Improved User Experience</h3>
+                <div class="instruction-step">
+                    <strong>ENHANCED: Interface & Usability</strong>
+                    <ul>
+                        <li>Redesigned category buttons with gradient styling</li>
+                        <li>Improved form validation with clear error indicators</li>
+                        <li>Enhanced date and time pickers for custom fields</li>
+                        <li>Better organization of settings in Information tab</li>
+                        <li>Streamlined entry creation flow</li>
+                    </ul>
+                </div>
+
+                <h3>🛡️ Privacy & Security Enhancements</h3>
+                <div class="instruction-step">
+                    <strong>STRENGTHENED: Data Protection</strong>
+                    <ul>
+                        <li>Continued local-only data storage with SwiftData</li>
+                        <li>Enhanced permission management for camera and microphone</li>
+                        <li>Improved data export security and formatting</li>
+                        <li>Better handling of photo storage and deletion</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Migration Note:</strong> Existing users will see their old entries preserved, with new categories and features available immediately. Default categories are automatically updated to include enhanced functionality.
+                </div>
+
+                <h3>🔮 Coming Soon</h3>
+                <div class="instruction-step">
+                    <strong>Planned Features:</strong>
+                    <ul>
+                        <li>Advanced pattern recognition and insights</li>
+                        <li>Medication reminder integration</li>
+                        <li>Enhanced export formats (PDF, structured data)</li>
+                        <li>Caregiver sharing capabilities</li>
+                        <li>Voice memo attachments</li>
+                    </ul>
                 </div>
             </div>
 
@@ -616,53 +953,72 @@
 
                 <div class="privacy-section">
                     <h3>Information Collection and Use</h3>
-                    <p>AnchorPoint is designed as a private, local journaling tool. We do not collect or store your personal data on any external servers. All information you enter into the app, including journal entries, notes, photos, mood logs, and other data, is stored locally on your device using Apple's SwiftData framework.</p>
+                    <p>AnchorPoint is designed as a private, local-only journaling and appointment management tool. We do not collect, transmit, or store your personal data on any external servers. All information you enter into the app, including journal entries, custom field data, photos, appointment details, mood logs, and other personal data, is stored locally on your device using Apple's SwiftData framework.</p>
                 </div>
 
                 <div class="privacy-section">
                     <h3>Data You Provide</h3>
                     <ul>
-                        <li><strong>Journal Entries:</strong> Text notes, category selections, timestamps, and associated mood types.</li>
+                        <li><strong>Journal Entries:</strong> Text notes, category selections, timestamps, custom field values, and associated mood types for mood log entries.</li>
+                        <li><strong>Custom Categories & Fields:</strong> Category names, icons, custom field definitions, and their associated data values.</li>
+                        <li><strong>Appointment Data:</strong> Provider names, appointment types, dates, times, notes, and notification preferences.</li>
                         <li><strong>Photos:</strong> Images you choose to attach to journal entries from your photo library or taken with the camera. Access to your photo library or camera is only requested when you choose to use these features.</li>
-                        <li><strong>Speech-to-Text:</strong> If you use the dictation feature, audio is processed by Apple's speech recognition service on-device (or as per Apple's current speech processing policies) to convert your speech into text. We do not store the audio data. The transcribed text is stored as part of your journal entry.</li>
+                        <li><strong>Speech-to-Text:</strong> If you use the dictation feature, audio is processed by Apple's speech recognition service to convert your speech into text. We do not store the audio data. The transcribed text is stored as part of your journal entry.</li>
                     </ul>
                 </div>
                 
                 <div class="privacy-section">
-                    <h3>Permissions</h3>
+                    <h3>Device Permissions</h3>
                     <ul>
-                        <li><strong>Camera Access (NSCameraUsageDescription):</strong> We request camera access solely to allow you to take photos to add to your journal entries. This access is only active when you choose to take a photo within the app.</li>
-                        <li><strong>Microphone Access (NSMicrophoneUsageDescription):</strong> We request microphone access solely for the dictation feature, allowing you to speak your journal notes. This access is only active when you explicitly start dictation.</li>
-                        <li><strong>Speech Recognition Access (NSSpeechRecognitionUsageDescription):</strong> We request access to speech recognition to convert your spoken notes into text for your journal entries. This processing is handled by Apple's services.</li>
-                        <li><strong>Photo Library Access (NSPhotoLibraryUsageDescription - handled by PhotosPicker):</strong> We request access to your photo library to allow you to select existing photos to add to your journal entries.</li>
+                        <li><strong>Camera Access:</strong> We request camera access solely to allow you to take photos to add to your journal entries. This access is only active when you choose to take a photo within the app.</li>
+                        <li><strong>Microphone Access:</strong> We request microphone access solely for the speech-to-text dictation feature, allowing you to speak your journal notes. This access is only active when you explicitly start dictation.</li>
+                        <li><strong>Speech Recognition Access:</strong> We request access to speech recognition to convert your spoken notes into text for your journal entries. This processing is handled by Apple's services according to their privacy policies.</li>
+                        <li><strong>Photo Library Access:</strong> We request access to your photo library to allow you to select existing photos to add to your journal entries. This is handled through iOS's secure PhotosPicker interface.</li>
+                        <li><strong>Notification Access:</strong> We request permission to send local notifications for appointment reminders. These notifications are generated locally on your device and do not involve external services.</li>
                     </ul>
                 </div>
 
                 <div class="privacy-section">
                     <h3>Data Storage and Security</h3>
-                    <p>All data you enter into AnchorPoint is stored locally on your device within the app's sandboxed environment using SwiftData. We do not transmit your journal data to any external servers or third parties. You are in control of your data.</p>
+                    <p>All data you enter into AnchorPoint is stored locally on your device within the app's sandboxed environment using Apple's SwiftData framework. We do not transmit your journal data, appointment information, photos, or any personal information to external servers or third parties. You maintain complete control over your data.</p>
                     
-                    <p>Because data is stored locally, its security is tied to the security of your device (e.g., passcode, Face ID/Touch ID). We recommend you use these security features to protect your device.</p>
+                    <p>The security of your data is tied to the security of your device (e.g., device passcode, Face ID/Touch ID). We strongly recommend using these security features to protect your device and, by extension, your AnchorPoint data.</p>
                 </div>
 
                 <div class="privacy-section">
                     <h3>Data Sharing and Export</h3>
-                    <p>AnchorPoint does not automatically share your data with any third parties. The app includes an export feature that allows you to generate a text-based summary of your journal entries. This export is initiated by you, and you control where the exported file is shared or saved (e.g., via email, messaging apps, or saved to your files).</p>
+                    <p>AnchorPoint does not automatically share your data with any third parties. The app includes an export feature that allows you to generate text-based summaries of your journal entries, including custom field data and appointment information. This export is initiated entirely by you, and you control where the exported file is shared or saved (e.g., via email, messaging apps, or saved to your files).</p>
+                    
+                    <p>Exported data includes journal entry text, dates, categories, custom field values, mood information, and appointment details. Photos are noted in exports but are not included in the text-based export files.</p>
                 </div>
 
                 <div class="privacy-section">
-                    <h3>Data Deletion</h3>
-                    <p>You can delete individual journal entries directly within the app. Deleting the AnchorPoint application from your device will also delete all locally stored app data, including all journal entries and associated photos.</p>
+                    <h3>Data Retention and Deletion</h3>
+                    <p>You can delete individual journal entries and appointments directly within the app at any time. Deleting the AnchorPoint application from your device will permanently delete all locally stored app data, including all journal entries, appointments, custom categories, custom fields, photos, and settings.</p>
+                    
+                    <p>Because all data is stored locally, we cannot recover your data once it has been deleted from your device. We recommend regularly using the export feature to back up important information.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>Third-Party Services</h3>
+                    <p>AnchorPoint uses the following Apple services, which are subject to Apple's privacy policies:</p>
+                    <ul>
+                        <li><strong>Speech Recognition:</strong> Apple's speech recognition service processes audio for dictation features</li>
+                        <li><strong>SwiftData:</strong> Apple's local data storage framework for secure, on-device data persistence</li>
+                        <li><strong>PhotosPicker:</strong> Apple's secure photo selection interface</li>
+                        <li><strong>Local Notifications:</strong> Apple's notification system for appointment reminders</li>
+                    </ul>
+                    <p>We do not integrate any third-party analytics, advertising, or data collection services.</p>
                 </div>
 
                 <div class="privacy-section">
                     <h3>Children's Privacy</h3>
-                    <p>Our Service does not address anyone under the age of 13 ("Children"). We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our service (though in AnchorPoint, all data is local to the user's device).</p>
+                    <p>Our Service does not address anyone under the age of 13 ("Children"). We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our service.</p>
                 </div>
 
                 <div class="privacy-section">
                     <h3>Changes to This Privacy Policy</h3>
-                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy within the app. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy within the app and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted.</p>
                 </div>
 
                 <div class="privacy-section">
